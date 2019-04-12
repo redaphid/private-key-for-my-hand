@@ -1,3 +1,9 @@
 #!/bin/sh
+key_header="-----BEGIN OPENSSH PRIVATE KEY-----"
+key_footer="-----END OPENSSH PRIVATE KEY-----"
+
 key=`cat $1`
-echo $key | base64 -D | gzip | wc -c
+key=${key#$key_header}
+key=${key%$key_footer}
+echo $key
+# echo $key | base64 -D | gzip | openssl enc -aes-256-cbc -salt
